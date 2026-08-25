@@ -5,10 +5,10 @@ from PPlay.keyboard import Keyboard
 width = 800
 height = 600
 
-velpad = 400
+velpad = 425
 velbola = 500 
 
-janela = Window(width,height,'Aula1')
+janela = Window(width,height,'Pong')
 bola = Sprite("./assets/circle-16.png")
 teclado = Keyboard()
 bola.set_position(width/2 - bola.width/2,height/2 - bola.height/2)
@@ -79,4 +79,6 @@ while True:
     janela.update()
     bola.draw()   
     pad1.draw()   
-    pad2.draw() 
+    pad2.draw()
+    janela.draw_text(contador2,width/4,height/10,tamanho= 50, cor=(255,255,255))
+    janela.draw_text(contador1,3*width/4,height/10,tamanho= 50, cor=(255,255,255))
