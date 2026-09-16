@@ -47,10 +47,35 @@ while(rodando):
                     break
                 
         case 1:
+            nave = Sprite("./assets/nave--.png")
+            nave.set_position(width/2 -nave.width/2,height-100)
+            vel = 200/dificuldade
+            dt = janela.delta_time()
+            tiros = []
+            cooldown = 0
             while True:
+                if cooldown>0:
+                    cooldown -= dt
+                elif cooldown <0:
+                    cooldown = 0
                 janela.set_background_color((0,0,0))
+                if teclado.key_pressed("LEFT") and nave.x > 0:
+                    nave.x -= vel*dt
+                if teclado.key_pressed("RIGHT") and nave.x + nave.width < width:
+                    nave.x += vel*dt
+                if teclado.key_down("SPACE") and cooldown == 0: 
+                    tiros.append(Sprite("./assets/shot.png"))
+                    tiros[len(tiros)-1].x = nave.x + nave.width/2 - tiros[len(tiros)-1].width/2
+                    tiros[len(tiros)-1].y = nave.y - nave.height/2
+                    cooldown = 0.5
+                for tiro in tiros:
+                    tiro.y -= vel * dificuldade * dt /2
+                    if tiro.y + tiro.height < 0:
+                        tiros.remove(tiro)
                 janela.update()
-                
+                nave.draw()
+                for tiro in tiros:
+                    tiro.draw()
                 if teclado.key_down("ESC"):
                     tela = 0
                     break
